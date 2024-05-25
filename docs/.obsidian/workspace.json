@@ -31,7 +31,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -97,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "迭代/000001_初始化 Nextron 工程.md",
+                "file": "intro.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "迭代/000001_初始化 Nextron 工程.md",
+                "file": "intro.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "迭代/000001_初始化 Nextron 工程.md"
+                "file": "intro.md"
               }
             }
           }
@@ -158,8 +159,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "6fba3e00b9a63ba0",
+  "active": "bf992d4aa7de2bf0",
   "lastOpenFiles": [
+    "迭代/000002_VS Code 式 Tab 管理系统.md",
     "intro.md",
     "迭代/000001_初始化 Nextron 工程.md",
     "_tmp_117285_ba9f9c7b990f121a76cfef7ccd57b0cc",
