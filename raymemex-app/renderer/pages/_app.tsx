@@ -3,6 +3,8 @@ import Head from 'next/head'
 import type { AppProps } from 'next/app'
 
 import 'antd/dist/reset.css'
+import 'react-grid-layout/css/styles.css'
+import 'react-resizable/css/styles.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
