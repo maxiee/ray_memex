@@ -1,0 +1,3 @@
+[submodule "docs/.obsidian/plugins/obsidian-knowledge-weaver"]
+	path = docs/.obsidian/plugins/obsidian-knowledge-weaver
+	url = git@github.com:maxiee/obsidian-knowledge-weaver.git
