@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import ReactGridLayout from 'react-grid-layout';
@@ -28,17 +28,25 @@ const App = () => {
   const layouts = useSelector(state => state.layouts);
   const dispatch = useDispatch();
 
+  // 添加状态以跟踪当前激活的标签页的 key
+  const [currentTabKey, setCurrentTabKey] = useState('1');
+
   // 示例：在某个事件处理函数中触发状态更新
   const handleLayoutChange = (newLayout) => {
-    dispatch(updateLayout(newLayout));
+    dispatch(updateLayout(currentTabKey, newLayout));
+  };
+
+  // 更新 handleTabChange 以在标签切换时设置 currentTabKey
+  const handleTabChange = (key) => {
+    setCurrentTabKey(key);
   };
 
   return (
     <DndProvider backend={HTML5Backend}>
       <ReactGridLayout className="layout" cols={12} rowHeight={30}
-        onLayoutChange={(layouts => handleLayoutChange(layouts))}>
+        onLayoutChange={layout => handleLayoutChange(layout)}>
         <div key="a">
-          <Tabs defaultActiveKey="1" type="editable-card">
+          <Tabs defaultActiveKey="1" type="editable-card" onChange={handleTabChange}>
             <TabPane tab="Tab 1" key="1">
               Content of Tab Pane 1
             </TabPane>
@@ -48,7 +56,7 @@ const App = () => {
           </Tabs>
         </div>
         <div key="b">
-          <Tabs defaultActiveKey="1" type="editable-card">
+          <Tabs defaultActiveKey="1" type="editable-card" onChange={handleTabChange}>
             <TabPane tab="Tab 1" key="1">
               Content of Tab Pane 1
             </TabPane>
@@ -58,7 +66,7 @@ const App = () => {
           </Tabs>
         </div>
         <div key="c">
-          <Tabs defaultActiveKey="1" type="editable-card">
+          <Tabs defaultActiveKey="1" type="editable-card" onChange={handleTabChange}>
             <TabPane tab="Tab 1" key="1">
               Content of Tab Pane 1
             </TabPane>
