@@ -1,167 +1,101 @@
-import React, { useState } from 'react'
+import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import ReactGridLayout from 'react-grid-layout';
-import { Tabs } from 'antd';
-import Head from 'next/head'
-import Link from 'next/link'
-import {
-  Layout,
-  Form,
-  Select,
-  InputNumber,
-  DatePicker,
-  Switch,
-  Slider,
-  Button,
-} from 'antd';
+import { Tabs, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateLayout } from '../store/actions';
+import { updateLayout, addTab, removeTab, setActiveTab, addWindow } from '../store/actions';
 
 const { TabPane } = Tabs;
 
-const { Header, Content } = Layout
-const { Item: FormItem } = Form
-const { Option } = Select
-
 const App = () => {
-  const layouts = useSelector(state => state.layouts);
+  const frames = useSelector((state: AppState) => state.frames);
   const dispatch = useDispatch();
 
-  // 添加状态以跟踪当前激活的标签页的 key
-  const [currentTabKey, setCurrentTabKey] = useState('1');
-
-  // 示例：在某个事件处理函数中触发状态更新
-  const handleLayoutChange = (newLayout) => {
-    dispatch(updateLayout(currentTabKey, newLayout));
+  const handleLayoutChange = (frameId: string, windowId: string, newLayout: Layout[]) => {
+    dispatch(updateLayout(frameId, windowId, newLayout));
   };
 
-  // 更新 handleTabChange 以在标签切换时设置 currentTabKey
-  const handleTabChange = (key) => {
-    setCurrentTabKey(key);
+  const handleTabChange = (frameId: string, windowId: string, tabId: string) => {
+    dispatch(setActiveTab(frameId, windowId, tabId));
+  };
+
+  const handleAddTab = (frameId: string, windowId: string, tab: Tab) => {
+    dispatch(addTab(frameId, windowId, tab));
+  };
+
+  const handleRemoveTab = (frameId: string, windowId: string, tabId: string) => {
+    dispatch(removeTab(frameId, windowId, tabId));
+  };
+
+  const handleAddWindow = (frameId: string) => {
+    const newWindow: Window = {
+      id: `window-${Date.now()}`,
+      frameId,
+      x: 0,
+      y: 0,
+      width: 400,
+      height: 300,
+      tabs: [],
+    };
+    dispatch(addWindow(frameId, newWindow));
+
+    const newTab: Tab = {
+      id: `tab-${Date.now()}`,
+      windowId: newWindow.id,
+      title: 'New Tab',
+      active: true,
+      componentInstance: null,
+    };
+    dispatch(addTab(frameId, newWindow.id, newTab));
   };
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <ReactGridLayout className="layout" cols={12} rowHeight={30}
-        onLayoutChange={layout => handleLayoutChange(layout)}>
-        <div key="a">
-          <Tabs defaultActiveKey="1" type="editable-card" onChange={handleTabChange}>
-            <TabPane tab="Tab 1" key="1">
-              Content of Tab Pane 1
-            </TabPane>
-            <TabPane tab="Tab 2" key="2">
-              Content of Tab Pane 2
-            </TabPane>
-          </Tabs>
+      {frames.map((frame) => (
+        <div key={frame.id}>
+          <h2>{frame.title}</h2>
+          <Button onClick={() => handleAddWindow(frame.id)}>Add Window</Button>
+          <ReactGridLayout
+            className="layout"
+            cols={12}
+            rowHeight={30}
+            width={frame.width}
+            onLayoutChange={(layout) => handleLayoutChange(frame.id, layout)}
+          >
+            {frame.windows.map((window) => (
+              <div key={window.id}>
+                <Tabs
+                  type="editable-card"
+                  activeKey={window.tabs.find((tab) => tab.active)?.id}
+                  onChange={(tabId) => handleTabChange(frame.id, window.id, tabId)}
+                  onEdit={(targetKey, action) => {
+                    if (action === 'add') {
+                      handleAddTab(frame.id, window.id, {
+                        id: `tab-${Date.now()}`,
+                        windowId: window.id,
+                        title: 'New Tab',
+                        active: true,
+                        componentInstance: null,
+                      });
+                    } else {
+                      handleRemoveTab(frame.id, window.id, targetKey as string);
+                    }
+                  }}
+                >
+                  {window.tabs.map((tab) => (
+                    <TabPane tab={tab.title} key={tab.id}>
+                      {tab.componentInstance}
+                    </TabPane>
+                  ))}
+                </Tabs>
+              </div>
+            ))}
+          </ReactGridLayout>
         </div>
-        <div key="b">
-          <Tabs defaultActiveKey="1" type="editable-card" onChange={handleTabChange}>
-            <TabPane tab="Tab 1" key="1">
-              Content of Tab Pane 1
-            </TabPane>
-            <TabPane tab="Tab 2" key="2">
-              Content of Tab Pane 2
-            </TabPane>
-          </Tabs>
-        </div>
-        <div key="c">
-          <Tabs defaultActiveKey="1" type="editable-card" onChange={handleTabChange}>
-            <TabPane tab="Tab 1" key="1">
-              Content of Tab Pane 1
-            </TabPane>
-            <TabPane tab="Tab 2" key="2">
-              Content of Tab Pane 2
-            </TabPane>
-          </Tabs>
-        </div>
-      </ReactGridLayout>
+      ))}
     </DndProvider>
   );
 };
 
 export default App;
-
-// export default function HomePage() {
-//   return (
-//     <React.Fragment>
-//       <Head>
-//         <title>Home - Nextron (with-ant-design)</title>
-//       </Head>
-
-//       <Header>
-//         <Link href="/next">Go to next page</Link>
-//       </Header>
-
-//       <Content style={{ padding: 48 }}>
-//         <Form layout="horizontal">
-//           <FormItem
-//             label="Input Number"
-//             labelCol={{ span: 8 }}
-//             wrapperCol={{ span: 8 }}
-//           >
-//             <InputNumber
-//               size="large"
-//               min={1}
-//               max={10}
-//               style={{ width: 100 }}
-//               defaultValue={3}
-//               name="inputNumber"
-//             />
-//             <a href="#">Link</a>
-//           </FormItem>
-
-//           <FormItem
-//             label="Switch"
-//             labelCol={{ span: 8 }}
-//             wrapperCol={{ span: 8 }}
-//           >
-//             <Switch defaultChecked />
-//           </FormItem>
-
-//           <FormItem
-//             label="Slider"
-//             labelCol={{ span: 8 }}
-//             wrapperCol={{ span: 8 }}
-//           >
-//             <Slider defaultValue={70} />
-//           </FormItem>
-
-//           <FormItem
-//             label="Select"
-//             labelCol={{ span: 8 }}
-//             wrapperCol={{ span: 8 }}
-//           >
-//             <Select size="large" defaultValue="lucy" style={{ width: 192 }}>
-//               <Option value="jack">jack</Option>
-//               <Option value="lucy">lucy</Option>
-//               <Option value="disabled" disabled>
-//                 disabled
-//               </Option>
-//               <Option value="yiminghe">yiminghe</Option>
-//             </Select>
-//           </FormItem>
-
-//           <FormItem
-//             label="DatePicker"
-//             labelCol={{ span: 8 }}
-//             wrapperCol={{ span: 8 }}
-//           >
-//             <DatePicker name="startDate" />
-//           </FormItem>
-//           <FormItem
-//             style={{ marginTop: 48 }}
-//             wrapperCol={{ span: 8, offset: 8 }}
-//           >
-//             <Button size="large" type="primary" htmlType="submit">
-//               OK
-//             </Button>
-//             <Button size="large" style={{ marginLeft: 8 }}>
-//               Cancel
-//             </Button>
-//           </FormItem>
-//         </Form>
-//       </Content>
-//     </React.Fragment>
-//   )
-// }

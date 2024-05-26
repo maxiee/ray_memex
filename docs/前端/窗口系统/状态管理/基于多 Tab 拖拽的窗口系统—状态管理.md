@@ -13,4 +13,8 @@ RayMemex 采用类似 VS Code 的多窗口、多 Tab 管理系统。
 - Window：Window 指一个  react-grid-layout 的 GridItem，在 RayMemex 中，它表示一个窗口。
 - Tab：Tab 是位于 Window 中的标签，一个 Window 包含一个或多个 Tab，并且可以切换。同时，Tab 支持拖拽，可以拖到别的 Window 下。同时 Tab 还是有状态的，记录了其内部的 React 组件的实例。
 
+基于如上声明，定义实体类如下：
+
+![[窗口管理实体类]]
+
 </基于多 Tab 拖拽的窗口系统—状态管理>
