@@ -20,6 +20,18 @@
             }
           },
           {
+            "id": "8ba6781a52365535",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "问题/000001.ResponsiveGridLayout 引入 Redux 报错.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "bf343d06850ae263",
             "type": "leaf",
             "state": {
@@ -31,7 +43,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "fb86f6d5ef47e106",
@@ -115,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "迭代/000003_基于多 Tab 拖拽的窗口系统.md",
+                "file": "问题/000001.ResponsiveGridLayout 引入 Redux 报错.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -132,7 +145,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "迭代/000003_基于多 Tab 拖拽的窗口系统.md",
+                "file": "问题/000001.ResponsiveGridLayout 引入 Redux 报错.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -155,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "迭代/000003_基于多 Tab 拖拽的窗口系统.md"
+                "file": "问题/000001.ResponsiveGridLayout 引入 Redux 报错.md"
               }
             }
           }
@@ -176,12 +189,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "6fba3e00b9a63ba0",
+  "active": "8ba6781a52365535",
   "lastOpenFiles": [
-    "迭代/000001_初始化 Nextron 工程.md",
-    "迭代/000003_基于多 Tab 拖拽的窗口系统.md",
-    "前端/窗口系统/状态管理/基于多 Tab 拖拽的窗口系统—状态管理.md",
     "intro.md",
+    "问题/000001.ResponsiveGridLayout 引入 Redux 报错.md",
+    "迭代/000003_基于多 Tab 拖拽的窗口系统.md",
+    "问题",
+    "迭代/000001_初始化 Nextron 工程.md",
+    "前端/窗口系统/状态管理/基于多 Tab 拖拽的窗口系统—状态管理.md",
     "前端/窗口系统/基于多 Tab 拖拽的窗口系统介绍.md",
     "前端/窗口系统/状态管理",
     "前端/窗口系统",
