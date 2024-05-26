@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: WindowManagerState = {
     windows: []
@@ -9,10 +9,12 @@ const appSlice = createSlice({
     name: 'winowManager',
     initialState,
     reducers: {
-        updateLayout(state, action) {
-            // const { frameId, layout } = action.payload;
-            // const frame = state.frames.find(f => f.id === frameId);
-            // console.log('frame', frame);
+        updateLayout(state, action: PayloadAction<{ windowId: string; layout: any }>) {
+            const { windowId, layout } = action.payload;
+            const window = state.windows.find((w) => w.id === windowId);
+            if (window) {
+                window.layout = layout;
+            }
         },
         addWindow(state, action) {
             state.windows.push(action.payload.window);

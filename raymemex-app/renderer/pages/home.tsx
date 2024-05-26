@@ -13,9 +13,12 @@ const App = () => {
   const dispatch = useDispatch();
 
   const handleLayoutChange = (newLayout: Layout[]) => {
-    dispatch(updateLayout({
-      layout: newLayout,
-    }));
+    newLayout.forEach((layout) => {
+      dispatch(updateLayout({
+        windowId: layout.i,
+        layout: layout,
+      }));
+    });
   };
 
   const handleTabChange = (windowId: string, tabId: string) => {
@@ -40,13 +43,17 @@ const App = () => {
   };
 
   const handleAddWindow = () => {
+    const id = `window-${Date.now()}`;
     const newWindow: RMWindow = {
-      id: `window-${Date.now()}`,
-      x: 0,
-      y: 0,
-      width: 400,
-      height: 300,
+      id: id,
       tabs: [],
+      layout: {
+        i: id,
+        x: 0,
+        y: 0,
+        w: 4,
+        h: 4,
+      },
     };
     dispatch(addWindow({
       window: newWindow,
@@ -73,7 +80,9 @@ const App = () => {
             className="layout"
             cols={12}
             rowHeight={30}
-          onLayoutChange={(layout) => handleLayoutChange(layout)}
+          width={1200}
+          layout={windowManager.windows.map((window) => window.layout)}
+          onLayoutChange={handleLayoutChange}
           >
           {windowManager.windows.map((window) => (
               <div key={window.id}>

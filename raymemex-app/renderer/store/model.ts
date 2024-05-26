@@ -1,10 +1,13 @@
 // `Window` 实体表示一个 react-grid-layout 的 GridItem，即一个窗口
 interface RMWindow {
     id: string;         // Window 的唯一标识符。
-    x: number;          // Window 在 Frame 中的坐标。
-    y: number;
-    width: number;      // Window 的大小。
-    height: number;
+    layout: {
+        i: string;
+        x: number;
+        y: number;
+        w: number;
+        h: number;
+    };
     tabs: Tab[];        // Window 包含的 Tab 实例数组
 }
 
