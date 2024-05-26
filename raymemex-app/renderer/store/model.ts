@@ -31,5 +31,7 @@ interface Tab {
 
 // 应用程序状态，用于表示整个应用程序的状态，其中包含一个 `frames` 数组，用于存储所有的 Frame 实例。
 interface AppState {
-    frames: Frame[];
+    app: {
+        frames: Frame[];
+    }
 }

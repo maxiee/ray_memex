@@ -4,28 +4,43 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import ReactGridLayout from 'react-grid-layout';
 import { Tabs, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateLayout, addTab, removeTab, setActiveTab, addWindow } from '../store/actions';
+import { addWindow, updateLayout, setActiveTab, addTab, removeTab } from '../store';
 
 const { TabPane } = Tabs;
 
 const App = () => {
-  const frames = useSelector((state: AppState) => state.frames);
+  const frames = useSelector((state: AppState) => state.app.frames);
   const dispatch = useDispatch();
 
-  const handleLayoutChange = (frameId: string, windowId: string, newLayout: Layout[]) => {
-    dispatch(updateLayout(frameId, windowId, newLayout));
+  const handleLayoutChange = (frameId: string, newLayout: Layout[]) => {
+    dispatch(updateLayout({
+      frameId,
+      layout: newLayout,
+    }));
   };
 
   const handleTabChange = (frameId: string, windowId: string, tabId: string) => {
-    dispatch(setActiveTab(frameId, windowId, tabId));
+    dispatch(setActiveTab({
+      frameId,
+      windowId,
+      tabId,
+    }));
   };
 
   const handleAddTab = (frameId: string, windowId: string, tab: Tab) => {
-    dispatch(addTab(frameId, windowId, tab));
+    dispatch(addTab({
+      frameId,
+      windowId,
+      tab,
+    }));
   };
 
   const handleRemoveTab = (frameId: string, windowId: string, tabId: string) => {
-    dispatch(removeTab(frameId, windowId, tabId));
+    dispatch(removeTab({
+      frameId,
+      windowId,
+      tabId,
+    }));
   };
 
   const handleAddWindow = (frameId: string) => {
@@ -38,7 +53,10 @@ const App = () => {
       height: 300,
       tabs: [],
     };
-    dispatch(addWindow(frameId, newWindow));
+    dispatch(addWindow({
+      frameId,
+      window: newWindow,
+    }));
 
     const newTab: Tab = {
       id: `tab-${Date.now()}`,
@@ -47,7 +65,11 @@ const App = () => {
       active: true,
       componentInstance: null,
     };
-    dispatch(addTab(frameId, newWindow.id, newTab));
+    dispatch(addTab({
+      frameId,
+      windowId: newWindow.id,
+      tab: newTab,
+    }));
   };
 
   return (

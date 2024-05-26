@@ -1,5 +1,4 @@
-import { createStore } from 'redux';
-import { UPDATE_LAYOUT, ADD_TAB, REMOVE_TAB, SET_ACTIVE_TAB, ADD_WINDOW } from './actions';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 const initialState: AppState = {
     frames: [{
@@ -13,116 +12,58 @@ const initialState: AppState = {
     }],
 };
 
-function reducer(state = initialState, action: any): AppState {
-    switch (action.type) {
-        case UPDATE_LAYOUT:
-            const { frameId, windowId, layout } = action.payload;
-            return {
-                ...state,
-                frames: state.frames.map((frame) => {
-                    if (frame.id === frameId) {
-                        return {
-                            ...frame,
-                            windows: frame.windows.map((window) => {
-                                if (window.id === windowId) {
-                                    return {
-                                        ...window,
-                                        ...layout.find((l) => l.i === windowId),
-                                    };
-                                }
-                                return window;
-                            }),
-                        };
-                    }
-                    return frame;
-                }),
-            };
-        case ADD_WINDOW:
-            return {
-                ...state,
-                frames: state.frames.map((frame) => {
-                    if (frame.id === action.payload.frameId) {
-                        return {
-                            ...frame,
-                            windows: [...frame.windows, action.payload.window],
-                        };
-                    }
-                    return frame;
-                }),
-            };
-        case ADD_TAB:
-            return {
-                ...state,
-                frames: state.frames.map((frame) => {
-                    if (frame.id === action.payload.frameId) {
-                        return {
-                            ...frame,
-                            windows: frame.windows.map((window) => {
-                                if (window.id === action.payload.windowId) {
-                                    return {
-                                        ...window,
-                                        tabs: [...window.tabs, action.payload.tab],
-                                    };
-                                }
-                                return window;
-                            }),
-                        };
-                    }
-                    return frame;
-                }),
-            };
-        case REMOVE_TAB:
-            return {
-                ...state,
-                frames: state.frames.map((frame) => {
-                    if (frame.id === action.payload.frameId) {
-                        return {
-                            ...frame,
-                            windows: frame.windows.map((window) => {
-                                if (window.id === action.payload.windowId) {
-                                    return {
-                                        ...window,
-                                        tabs: window.tabs.filter((tab) => tab.id !== action.payload.tabId),
-                                    };
-                                }
-                                return window;
-                            }),
-                        };
-                    }
-                    return frame;
-                }),
-            };
-        case SET_ACTIVE_TAB:
-            return {
-                ...state,
-                frames: state.frames.map((frame) => {
-                    if (frame.id === action.payload.frameId) {
-                        return {
-                            ...frame,
-                            windows: frame.windows.map((window) => {
-                                if (window.id === action.payload.windowId) {
-                                    return {
-                                        ...window,
-                                        tabs: window.tabs.map((tab) => {
-                                            return {
-                                                ...tab,
-                                                active: tab.id === action.payload.tabId,
-                                            };
-                                        }),
-                                    };
-                                }
-                                return window;
-                            }),
-                        };
-                    }
-                    return frame;
-                }),
-            };
-        default:
-            return state;
+// Using createSlice to manage actions and reducers
+const appSlice = createSlice({
+    name: 'app',
+    initialState,
+    reducers: {
+        updateLayout(state, action) {
+            const { frameId, layout } = action.payload;
+            const frame = state.frames.find(f => f.id === frameId);
+            console.log('frame', frame);
+        },
+        addWindow(state, action) {
+            const frame = state.frames.find(f => f.id === action.payload.frameId);
+            if (frame) {
+                frame.windows.push(action.payload.window);
+            }
+        },
+        addTab(state, action) {
+            const frame = state.frames.find(f => f.id === action.payload.frameId);
+            if (frame) {
+                const window = frame.windows.find(w => w.id === action.payload.windowId);
+                if (window) {
+                    window.tabs.push(action.payload.tab);
+                }
+            }
+        },
+        removeTab(state, action) {
+            const frame = state.frames.find(f => f.id === action.payload.frameId);
+            if (frame) {
+                const window = frame.windows.find(w => w.id === action.payload.windowId);
+                if (window) {
+                    window.tabs = window.tabs.filter(tab => tab.id !== action.payload.tabId);
+                }
+            }
+        },
+        setActiveTab(state, action) {
+            const frame = state.frames.find(f => f.id === action.payload.frameId);
+            if (frame) {
+                const window = frame.windows.find(w => w.id === action.payload.windowId);
+                if (window) {
+                    window.tabs.forEach(tab => tab.active = tab.id === action.payload.tabId);
+                }
+            }
+        }
     }
-}
+});
 
-const store = createStore(reducer);
+// Export actions
+export const { updateLayout, addWindow, addTab, removeTab, setActiveTab } = appSlice.actions;
 
-export default store;
+// Create store with Redux Toolkit
+export default configureStore({
+    reducer: {
+        app: appSlice.reducer,
+    },
+});
