@@ -9,7 +9,7 @@ import { addWindow, updateLayout, setActiveTab, addTab, removeTab } from '../sto
 const { TabPane } = Tabs;
 
 const App = () => {
-  const frames = useSelector((state: AppState) => state.app.frames);
+  const frames = useSelector((state: AppState) => state.windowManager.frames);
   const dispatch = useDispatch();
 
   const handleLayoutChange = (frameId: string, newLayout: Layout[]) => {
@@ -44,7 +44,7 @@ const App = () => {
   };
 
   const handleAddWindow = (frameId: string) => {
-    const newWindow: Window = {
+    const newWindow: RMWindow = {
       id: `window-${Date.now()}`,
       frameId,
       x: 0,

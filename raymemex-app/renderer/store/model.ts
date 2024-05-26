@@ -6,11 +6,11 @@ interface Frame {
     y: number;
     width: number;
     height: number;     // Frame 的大小。
-    windows: Window[];  // Frame 包含的 Window 实例数组。
+    windows: RMWindow[];  // Frame 包含的 Window 实例数组。
 }
 
 // `Window` 实体表示一个 react-grid-layout 的 GridItem，即一个窗口
-interface Window {
+interface RMWindow {
     id: string;         // Window 的唯一标识符。
     frameId: string;    // Window 所属的 Frame 的标识符。
     x: number;          // Window 在 Frame 中的坐标。
@@ -30,8 +30,10 @@ interface Tab {
 }
 
 // 应用程序状态，用于表示整个应用程序的状态，其中包含一个 `frames` 数组，用于存储所有的 Frame 实例。
+interface WindowManagerState {
+    frames: Frame[];
+}
+
 interface AppState {
-    app: {
-        frames: Frame[];
-    }
+    windowManager: WindowManagerState;
 }

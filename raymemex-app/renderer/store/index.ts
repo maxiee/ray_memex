@@ -1,8 +1,8 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const initialState: AppState = {
-    app: {
-        frames: [{
+const initialState: WindowManagerState = {
+    frames: [
+        {
             id: 'frame-1',
             title: 'Frame 1',
             x: 0,
@@ -10,28 +10,28 @@ const initialState: AppState = {
             width: 800,
             height: 600,
             windows: [],
-        }],
-    }
+        },
+    ]
 };
 
 // Using createSlice to manage actions and reducers
 const appSlice = createSlice({
-    name: 'app',
+    name: 'winowManager',
     initialState,
     reducers: {
         updateLayout(state, action) {
             const { frameId, layout } = action.payload;
-            const frame = state.app.frames.find(f => f.id === frameId);
+            const frame = state.frames.find(f => f.id === frameId);
             console.log('frame', frame);
         },
         addWindow(state, action) {
-            const frame = state.app.frames.find(f => f.id === action.payload.frameId);
+            const frame = state.frames.find(f => f.id === action.payload.frameId);
             if (frame) {
                 frame.windows.push(action.payload.window);
             }
         },
         addTab(state, action) {
-            const frame = state.app.frames.find(f => f.id === action.payload.frameId);
+            const frame = state.frames.find(f => f.id === action.payload.frameId);
             if (frame) {
                 const window = frame.windows.find(w => w.id === action.payload.windowId);
                 if (window) {
@@ -40,7 +40,7 @@ const appSlice = createSlice({
             }
         },
         removeTab(state, action) {
-            const frame = state.app.frames.find(f => f.id === action.payload.frameId);
+            const frame = state.frames.find(f => f.id === action.payload.frameId);
             if (frame) {
                 const window = frame.windows.find(w => w.id === action.payload.windowId);
                 if (window) {
@@ -49,7 +49,7 @@ const appSlice = createSlice({
             }
         },
         setActiveTab(state, action) {
-            const frame = state.app.frames.find(f => f.id === action.payload.frameId);
+            const frame = state.frames.find(f => f.id === action.payload.frameId);
             if (frame) {
                 const window = frame.windows.find(w => w.id === action.payload.windowId);
                 if (window) {
@@ -66,6 +66,6 @@ export const { updateLayout, addWindow, addTab, removeTab, setActiveTab } = appS
 // Create store with Redux Toolkit
 export default configureStore({
     reducer: {
-        app: appSlice.reducer,
+        windowManager: appSlice.reducer,
     },
 });
