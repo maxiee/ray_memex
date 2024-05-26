@@ -13,14 +13,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "迭代/000001_初始化 Nextron 工程.md",
+                "file": "迭代/000003_基于多 Tab 拖拽的窗口系统.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "bf992d4aa7de2bf0",
+            "id": "bf343d06850ae263",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -31,8 +31,25 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
+      },
+      {
+        "id": "fb86f6d5ef47e106",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e57195f9a8d1a93b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "intro.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +115,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "intro.md",
+                "file": "迭代/000003_基于多 Tab 拖拽的窗口系统.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +132,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "intro.md",
+                "file": "迭代/000003_基于多 Tab 拖拽的窗口系统.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "intro.md"
+                "file": "迭代/000003_基于多 Tab 拖拽的窗口系统.md"
               }
             }
           }
@@ -159,11 +176,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "bf992d4aa7de2bf0",
+  "active": "6fba3e00b9a63ba0",
   "lastOpenFiles": [
-    "迭代/000002_VS Code 式 Tab 管理系统.md",
-    "intro.md",
     "迭代/000001_初始化 Nextron 工程.md",
+    "迭代/000003_基于多 Tab 拖拽的窗口系统.md",
+    "前端/窗口系统/状态管理/基于多 Tab 拖拽的窗口系统—状态管理.md",
+    "intro.md",
+    "前端/窗口系统/基于多 Tab 拖拽的窗口系统介绍.md",
+    "前端/窗口系统/状态管理",
+    "前端/窗口系统",
+    "前端",
+    "迭代/000002_VS Code 式 Tab 管理系统.md",
     "_tmp_117285_ba9f9c7b990f121a76cfef7ccd57b0cc",
     "迭代"
   ]
