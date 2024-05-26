@@ -1,17 +1,7 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 const initialState: WindowManagerState = {
-    frames: [
-        {
-            id: 'frame-1',
-            title: 'Frame 1',
-            x: 0,
-            y: 0,
-            width: 800,
-            height: 600,
-            windows: [],
-        },
-    ]
+    windows: []
 };
 
 // Using createSlice to manage actions and reducers
@@ -20,41 +10,31 @@ const appSlice = createSlice({
     initialState,
     reducers: {
         updateLayout(state, action) {
-            const { frameId, layout } = action.payload;
-            const frame = state.frames.find(f => f.id === frameId);
-            console.log('frame', frame);
+            // const { frameId, layout } = action.payload;
+            // const frame = state.frames.find(f => f.id === frameId);
+            // console.log('frame', frame);
         },
         addWindow(state, action) {
-            const frame = state.frames.find(f => f.id === action.payload.frameId);
-            if (frame) {
-                frame.windows.push(action.payload.window);
-            }
+            state.windows.push(action.payload.window);
         },
         addTab(state, action) {
-            const frame = state.frames.find(f => f.id === action.payload.frameId);
-            if (frame) {
-                const window = frame.windows.find(w => w.id === action.payload.windowId);
-                if (window) {
-                    window.tabs.push(action.payload.tab);
-                }
+            const window = state.windows.find(w => w.id === action.payload.windowId);
+            if (window) {
+                window.tabs.push(action.payload.tab);
             }
         },
         removeTab(state, action) {
-            const frame = state.frames.find(f => f.id === action.payload.frameId);
-            if (frame) {
-                const window = frame.windows.find(w => w.id === action.payload.windowId);
-                if (window) {
-                    window.tabs = window.tabs.filter(tab => tab.id !== action.payload.tabId);
-                }
+            const window = state.windows.find(w => w.id === action.payload.windowId);
+            if (window) {
+                window.tabs = window.tabs.filter(tab => tab.id !== action.payload.tabId);
             }
         },
         setActiveTab(state, action) {
-            const frame = state.frames.find(f => f.id === action.payload.frameId);
-            if (frame) {
-                const window = frame.windows.find(w => w.id === action.payload.windowId);
-                if (window) {
-                    window.tabs.forEach(tab => tab.active = tab.id === action.payload.tabId);
-                }
+            const window = state.windows.find(w => w.id === action.payload.windowId);
+            if (window) {
+                window.tabs.forEach(tab => {
+                    tab.active = tab.id === action.payload.tabId;
+                });
             }
         }
     }

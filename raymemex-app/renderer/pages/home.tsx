@@ -9,44 +9,39 @@ import { addWindow, updateLayout, setActiveTab, addTab, removeTab } from '../sto
 const { TabPane } = Tabs;
 
 const App = () => {
-  const frames = useSelector((state: AppState) => state.windowManager.frames);
+  const windowManager = useSelector((state: AppState) => state.windowManager);
   const dispatch = useDispatch();
 
-  const handleLayoutChange = (frameId: string, newLayout: Layout[]) => {
+  const handleLayoutChange = (newLayout: Layout[]) => {
     dispatch(updateLayout({
-      frameId,
       layout: newLayout,
     }));
   };
 
-  const handleTabChange = (frameId: string, windowId: string, tabId: string) => {
+  const handleTabChange = (windowId: string, tabId: string) => {
     dispatch(setActiveTab({
-      frameId,
       windowId,
       tabId,
     }));
   };
 
-  const handleAddTab = (frameId: string, windowId: string, tab: Tab) => {
+  const handleAddTab = (windowId: string, tab: Tab) => {
     dispatch(addTab({
-      frameId,
       windowId,
       tab,
     }));
   };
 
-  const handleRemoveTab = (frameId: string, windowId: string, tabId: string) => {
+  const handleRemoveTab = (windowId: string, tabId: string) => {
     dispatch(removeTab({
-      frameId,
       windowId,
       tabId,
     }));
   };
 
-  const handleAddWindow = (frameId: string) => {
+  const handleAddWindow = () => {
     const newWindow: RMWindow = {
       id: `window-${Date.now()}`,
-      frameId,
       x: 0,
       y: 0,
       width: 400,
@@ -54,7 +49,6 @@ const App = () => {
       tabs: [],
     };
     dispatch(addWindow({
-      frameId,
       window: newWindow,
     }));
 
@@ -66,7 +60,6 @@ const App = () => {
       componentInstance: null,
     };
     dispatch(addTab({
-      frameId,
       windowId: newWindow.id,
       tab: newTab,
     }));
@@ -74,26 +67,23 @@ const App = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      {frames.map((frame) => (
-        <div key={frame.id}>
-          <h2>{frame.title}</h2>
-          <Button onClick={() => handleAddWindow(frame.id)}>Add Window</Button>
+      <div key="frame">
+        <Button onClick={() => handleAddWindow()}>Add Window</Button>
           <ReactGridLayout
             className="layout"
             cols={12}
             rowHeight={30}
-            width={frame.width}
-            onLayoutChange={(layout) => handleLayoutChange(frame.id, layout)}
+          onLayoutChange={(layout) => handleLayoutChange(layout)}
           >
-            {frame.windows.map((window) => (
+          {windowManager.windows.map((window) => (
               <div key={window.id}>
                 <Tabs
                   type="editable-card"
                   activeKey={window.tabs.find((tab) => tab.active)?.id}
-                  onChange={(tabId) => handleTabChange(frame.id, window.id, tabId)}
+                onChange={(tabId) => handleTabChange(window.id, tabId)}
                   onEdit={(targetKey, action) => {
                     if (action === 'add') {
-                      handleAddTab(frame.id, window.id, {
+                      handleAddTab(window.id, {
                         id: `tab-${Date.now()}`,
                         windowId: window.id,
                         title: 'New Tab',
@@ -101,7 +91,7 @@ const App = () => {
                         componentInstance: null,
                       });
                     } else {
-                      handleRemoveTab(frame.id, window.id, targetKey as string);
+                      handleRemoveTab(window.id, targetKey as string);
                     }
                   }}
                 >
@@ -115,7 +105,7 @@ const App = () => {
             ))}
           </ReactGridLayout>
         </div>
-      ))}
+
     </DndProvider>
   );
 };
