@@ -1,7 +1,7 @@
 import React from 'react'
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Responsive, WidthProvider } from 'react-grid-layout';
+import ReactGridLayout from 'react-grid-layout';
 import { Tabs } from 'antd';
 import Head from 'next/head'
 import Link from 'next/link'
@@ -14,9 +14,10 @@ import {
   Switch,
   Slider,
   Button,
-} from 'antd'
+} from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateLayout } from '../store/actions';
 
-const ResponsiveGridLayout = WidthProvider(Responsive);
 const { TabPane } = Tabs;
 
 const { Header, Content } = Layout
@@ -24,29 +25,18 @@ const { Item: FormItem } = Form
 const { Option } = Select
 
 const App = () => {
-  const layouts = {
-    lg: [{ i: 'a', x: 0, y: 0, w: 1, h: 2, static: false },
-    { i: 'b', x: 1, y: 0, w: 3, h: 2, static: false },
-    { i: 'c', x: 4, y: 0, w: 1, h: 2, static: false }],
-    md: [{ i: 'a', x: 0, y: 0, w: 1, h: 2, static: false },
-    { i: 'b', x: 1, y: 0, w: 3, h: 2, static: false },
-    { i: 'c', x: 4, y: 0, w: 1, h: 2, static: false }],
-    sm: [{ i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
-    { i: 'b', x: 1, y: 0, w: 1, h: 2, static: true },
-    { i: 'c', x: 2, y: 0, w: 1, h: 2, static: true }],
-    xs: [{ i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
-    { i: 'b', x: 1, y: 0, w: 1, h: 2, static: true },
-    { i: 'c', x: 2, y: 0, w: 1, h: 2, static: true }],
-    xxs: [{ i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
-    { i: 'b', x: 1, y: 0, w: 1, h: 2, static: true },
-    { i: 'c', x: 2, y: 0, w: 1, h: 2, static: true }]
-  };
+  const layouts = useSelector(state => state.layouts);
+  const dispatch = useDispatch();
 
-  const cols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 };
+  // 示例：在某个事件处理函数中触发状态更新
+  const handleLayoutChange = (newLayout) => {
+    dispatch(updateLayout(newLayout));
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <ResponsiveGridLayout className="layout" layouts={layouts} cols={cols} rowHeight={30}>
+      <ReactGridLayout className="layout" cols={12} rowHeight={30}
+        onLayoutChange={(layouts => handleLayoutChange(layouts))}>
         <div key="a">
           <Tabs defaultActiveKey="1" type="editable-card">
             <TabPane tab="Tab 1" key="1">
@@ -77,7 +67,7 @@ const App = () => {
             </TabPane>
           </Tabs>
         </div>
-      </ResponsiveGridLayout>
+      </ReactGridLayout>
     </DndProvider>
   );
 };
