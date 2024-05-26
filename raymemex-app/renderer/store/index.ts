@@ -1,15 +1,17 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 const initialState: AppState = {
-    frames: [{
-        id: 'frame-1',
-        title: 'Frame 1',
-        x: 0,
-        y: 0,
-        width: 800,
-        height: 600,
-        windows: [],
-    }],
+    app: {
+        frames: [{
+            id: 'frame-1',
+            title: 'Frame 1',
+            x: 0,
+            y: 0,
+            width: 800,
+            height: 600,
+            windows: [],
+        }],
+    }
 };
 
 // Using createSlice to manage actions and reducers
@@ -19,17 +21,17 @@ const appSlice = createSlice({
     reducers: {
         updateLayout(state, action) {
             const { frameId, layout } = action.payload;
-            const frame = state.frames.find(f => f.id === frameId);
+            const frame = state.app.frames.find(f => f.id === frameId);
             console.log('frame', frame);
         },
         addWindow(state, action) {
-            const frame = state.frames.find(f => f.id === action.payload.frameId);
+            const frame = state.app.frames.find(f => f.id === action.payload.frameId);
             if (frame) {
                 frame.windows.push(action.payload.window);
             }
         },
         addTab(state, action) {
-            const frame = state.frames.find(f => f.id === action.payload.frameId);
+            const frame = state.app.frames.find(f => f.id === action.payload.frameId);
             if (frame) {
                 const window = frame.windows.find(w => w.id === action.payload.windowId);
                 if (window) {
@@ -38,7 +40,7 @@ const appSlice = createSlice({
             }
         },
         removeTab(state, action) {
-            const frame = state.frames.find(f => f.id === action.payload.frameId);
+            const frame = state.app.frames.find(f => f.id === action.payload.frameId);
             if (frame) {
                 const window = frame.windows.find(w => w.id === action.payload.windowId);
                 if (window) {
@@ -47,7 +49,7 @@ const appSlice = createSlice({
             }
         },
         setActiveTab(state, action) {
-            const frame = state.frames.find(f => f.id === action.payload.frameId);
+            const frame = state.app.frames.find(f => f.id === action.payload.frameId);
             if (frame) {
                 const window = frame.windows.find(w => w.id === action.payload.windowId);
                 if (window) {
