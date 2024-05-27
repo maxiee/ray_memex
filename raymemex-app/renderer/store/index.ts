@@ -1,4 +1,5 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { WindowManagerState } from './model';
 
 const initialState: WindowManagerState = {
     windows: []
