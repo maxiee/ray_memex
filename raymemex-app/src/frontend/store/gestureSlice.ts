@@ -13,11 +13,9 @@ export const gestureSlice = createSlice({
     initialState,
     reducers: {
         startDragging: (state) => {
-            console.log('startDragging');
             state.isDragging = true;
         },
         stopDragging: (state) => {
-            console.log('stopDragging');
             state.isDragging = false;
         },
     },
