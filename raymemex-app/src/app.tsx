@@ -4,13 +4,14 @@ import { Mosaic, MosaicNode, MosaicWindow } from 'react-mosaic-component'; // Im
 
 
 import 'react-mosaic-component/react-mosaic-component.css';
+import WebView from './frontend/components/webview';
 // import '@blueprintjs/core/lib/css/blueprint.css';
 // import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 
 export type ViewId = 'a' | 'b' | 'c' | 'new';
 
-const TITLE_MAP: Record<ViewId, string> = {
-    a: 'Left Window',
+const TITLE_MAP: Record<ViewId, any> = {
+    a: <WebView src='https://baidu.com' />,
     b: 'Top Right Window',
     c: 'Bottom Right Window',
     new: 'New Window',
@@ -19,8 +20,8 @@ const TITLE_MAP: Record<ViewId, string> = {
 const Grid = () =>
     <Mosaic<ViewId>
         renderTile={(id, path) => (
-            <MosaicWindow<ViewId> path={path} createNode={() => 'new'} title={TITLE_MAP[id]}>
-                <h1>{TITLE_MAP[id]}</h1>
+            <MosaicWindow<ViewId> path={path} createNode={() => 'new'} title={id}>
+                {TITLE_MAP[id]}
             </MosaicWindow>
         )}
         initialValue={{
