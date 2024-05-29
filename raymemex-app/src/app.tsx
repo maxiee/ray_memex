@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'; // Import React
 import { createRoot } from 'react-dom/client';
 import { Mosaic, MosaicContext, MosaicNode, MosaicWindow, MosaicWindowContext } from 'react-mosaic-component'; // Import Mosaic and MosaicNode
-import { Button, ButtonProps, Dropdown, Menu } from 'antd';
+import { Button, ButtonProps, Dropdown, Flex, Menu } from 'antd';
 import { MoreOutlined, SplitCellsOutlined, DeleteOutlined, ExpandOutlined } from '@ant-design/icons';
 
 import WebView from './frontend/components/webview';
@@ -37,12 +37,14 @@ const Toolbar = () => {
     const expand = () => mosaicActions.expand(path, 70);
 
     return (
-        <div>
+        // 横向大小自适应
+        <>
+            <div style={{ flex: 1 }} />
             <ToolbarButton onClick={split} icon={<SplitCellsOutlined />} />
             <ToolbarButton onClick={replace} icon={<MoreOutlined />} />
             <ToolbarButton onClick={expand} icon={<ExpandOutlined />} />
             <ToolbarButton onClick={remove} icon={<DeleteOutlined />} />
-        </div>
+        </>
     );
 };
 
@@ -71,7 +73,7 @@ const Grid = () => {
         }}
         renderTile={(id, path) => (
             <MosaicWindow<ViewId> path={path} createNode={() => 'new'} title={id}
-                renderToolbar={() => <div><Toolbar /></div>}
+                renderToolbar={() => <div style={{ display: 'flex', width: '100%' }}><Toolbar /></div>}
                 onDragStart={() => {
                     console.log('drag start');
                     windowMovingRef.current = true;

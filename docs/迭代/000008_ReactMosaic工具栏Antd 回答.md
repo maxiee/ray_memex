@@ -204,3 +204,114 @@ renderToolbar={() => <div><Toolbar /></div>}
 这样应该就可以解决报错的问题了。React DnD 期望传递给 connector 的是原生的 HTML 元素节点，而不是 React 组件。通过将 `Toolbar` 包装在 `<div>` 中，我们满足了这个要求。
 
 如果问题仍然存在，请检查确保你正确地导入了所有必需的组件和样式文件。如有任何其他问题，欢迎随时提出。
+
+---
+
+## 手势没了
+
+替换完之后，展示是正常的，但是我发现手势没了。之前，在没指定 Toolbar 之前，会展示一个 react-mosaic 默认标题栏，是能够拖动标题栏进行窗口以东的。换上我们的 Antd 标题栏之后，拖动窗口不会动了。
+
+这个问题可能是因为我们自定义的 `Toolbar` 组件没有正确处理拖动事件。在 `MosaicWindow` 组件中，默认的标题栏已经设置了拖动处理程序，但是当我们使用自定义的 `Toolbar` 时，这些处理程序就没有生效。
+
+为了恢复窗口拖动功能，我们需要在自定义的 `Toolbar` 组件中正确处理拖动事件。我们可以使用 `react-mosaic` 提供的 `connectDragSource` 函数来实现这一点。
+
+以下是修改后的代码：
+
+```tsx
+const Toolbar = ({ connectDragSource }) => {
+  const { mosaicActions, mosaicWindowActions } = React.useContext(MosaicContext);
+  const path = mosaicWindowActions.getPath();
+  
+  const split = () => mosaicWindowActions.split().catch(console.error);
+  const replace = () => mosaicWindowActions.replaceWithNew().catch(console.error);
+  const remove = () => mosaicActions.remove(path);
+  const expand = () => mosaicActions.expand(path, 70); 
+
+  return connectDragSource(
+    <div>
+      <ToolbarButton onClick={split} icon={<SplitCellsOutlined />} />
+      <ToolbarButton onClick={replace} icon={<MoreOutlined />} />
+      <ToolbarButton onClick={expand} icon={<ExpandOutlined />} />
+      <ToolbarButton onClick={remove} icon={<DeleteOutlined />} />
+    </div>
+  );
+};
+
+const Grid = () => {
+    // ...
+
+    return <Mosaic<ViewId>
+        // ...
+        renderTile={(id, path) => (
+            <MosaicWindow<ViewId> 
+              // ...
+              renderToolbar={(props, connectDragSource) => (
+                <div>
+                  <Toolbar {...props} connectDragSource={connectDragSource} />
+                </div>
+              )}
+              // ...
+            >
+                {TITLE_MAP[id]}
+            </MosaicWindow>
+        )}
+        // ...
+    />;
+}
+```
+
+主要的修改如下：
+
+1. 在 `Toolbar` 组件中，接收 `connectDragSource` 作为属性，并用它包裹整个 `<div>` 元素。
+
+2. 在 `renderToolbar` 属性中，将 `connectDragSource` 传递给 `Toolbar` 组件。
+
+通过这些修改，我们将自定义的 `Toolbar` 组件连接到了 `react-mosaic` 的拖动处理程序。现在，你应该可以通过拖动 `Toolbar` 来移动窗口了。
+
+如果问题仍然存在，请仔细检查代码，确保正确地传递了 `connectDragSource` 函数，并且在 `Toolbar` 组件中正确地使用了它。
+
+希望这可以帮助你解决窗口拖动的问题。如有任何其他问题，欢迎随时提出。
+
+---
+
+我知道为什么无法拖动了，我们的 Toolbar 只有 4 个按钮，导致 Toolbar 只有 4 个按钮那么长，在这个长度内是可以拖动的，超出之后就不能拖动了。因此，我们的 Toolbar 需要一种方法，能充满横向剩余空间，放置手势透到底层元素。
+
+明白了，这是一个很好的观察。为了让 `Toolbar` 充满横向剩余空间并阻止手势穿透，我们可以对 `Toolbar` 组件进行一些调整。
+
+我们可以使用 CSS flexbox 布局来实现这一点。具体来说，我们将创建一个充满剩余空间的 `<div>`，并将其放置在按钮的前面。这个 `<div>` 将用于处理拖动事件。
+
+以下是修改后的代码：
+
+```tsx
+const Toolbar = ({ connectDragSource }) => {
+  const { mosaicActions, mosaicWindowActions } = React.useContext(MosaicContext);
+  const path = mosaicWindowActions.getPath();
+  
+  const split = () => mosaicWindowActions.split().catch(console.error);
+  const replace = () => mosaicWindowActions.replaceWithNew().catch(console.error);
+  const remove = () => mosaicActions.remove(path);
+  const expand = () => mosaicActions.expand(path, 70); 
+
+  return connectDragSource(
+    <div style={{ display: 'flex', width: '100%' }}>
+      <div style={{ flex: 1 }} /> {/* 这个 div 将占据剩余空间 */}
+      <ToolbarButton onClick={split} icon={<SplitCellsOutlined />} />
+      <ToolbarButton onClick={replace} icon={<MoreOutlined />} />
+      <ToolbarButton onClick={expand} icon={<ExpandOutlined />} />
+      <ToolbarButton onClick={remove} icon={<DeleteOutlined />} />
+    </div>
+  );
+};
+
+// Grid 组件保持不变
+```
+
+主要的修改是在 `Toolbar` 组件中：
+
+1. 将整个工具栏包装在一个 `<div>` 中，并设置其样式为 `display: 'flex'` 和 `width: '100%'`。这将使工具栏成为一个 flexbox 容器，并占据其父元素的全部宽度。
+
+2. 在按钮前添加一个空的 `<div>`，并设置其样式为 `flex: 1`。这将使该 `<div>` 占据工具栏中的所有剩余空间。
+
+通过这些修改，`Toolbar` 将占据其父元素的全部宽度，并且空的 `<div>` 将占据按钮左侧的所有剩余空间。当你在这个空白区域上拖动时，拖动事件将被 `Toolbar` 捕获，而不会透过到底层元素。
+
+请尝试这个解决方案，看看它是否解决了你的问题。如果还有任何问题，欢迎随时提出。
