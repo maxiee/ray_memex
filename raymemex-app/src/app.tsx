@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'; // Import React
 import { createRoot } from 'react-dom/client';
 import { Mosaic, MosaicContext, MosaicNode, MosaicWindow, MosaicWindowContext } from 'react-mosaic-component'; // Import Mosaic and MosaicNode
-import { Button, ButtonProps, Dropdown, Flex, Menu } from 'antd';
+import { Button, ButtonProps, Collapse, CollapseProps, Dropdown, Flex, Layout, Menu } from 'antd';
 import { MoreOutlined, SplitCellsOutlined, DeleteOutlined, ExpandOutlined } from '@ant-design/icons';
 
 import WebView from './frontend/components/webview';
@@ -12,6 +12,11 @@ import { startDragging, stopDragging } from './frontend/store/gestureSlice';
 // import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 
 import 'react-mosaic-component/react-mosaic-component.css';
+import { Content } from 'antd/es/layout/layout';
+import Sider from 'antd/es/layout/Sider';
+import Title from 'antd/es/typography/Title';
+import MenuItem from 'antd/es/menu/MenuItem';
+import { MenuItemType } from 'antd/es/menu/interface';
 
 export type ViewId = 'a' | 'b' | 'c' | 'new';
 
@@ -100,9 +105,39 @@ const Grid = () => {
     />;
 }
 
+const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
+
+const items: CollapseProps['items'] = [
+    {
+        key: '1',
+        label: '社交媒体',
+        children: <p>{text}</p>,
+    },
+    {
+        key: '2',
+        label: 'AI 网站',
+        children: <p>{text}</p>,
+    },
+    {
+        key: '3',
+        label: '常用网站',
+        children: <p>{text}</p>,
+    },
+];
 const root = createRoot(document.body);
 root.render(<div id="app">
     <Provider store={store}>
-        <Grid />
+        <Layout style={{ height: "100%" }}>
+            <Sider collapsible theme='light' >
+                <Collapse items={items} defaultActiveKey={['1']} />;
+            </Sider>
+            <Content>
+                <Grid />
+            </Content>
+        </Layout>
     </Provider>
 </div>);
