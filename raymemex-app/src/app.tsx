@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react'; // Import React
 import { createRoot } from 'react-dom/client';
 import { Mosaic, MosaicContext, MosaicNode, MosaicWindow, MosaicWindowContext } from 'react-mosaic-component'; // Import Mosaic and MosaicNode
-import { Button, ButtonProps, Collapse, CollapseProps, Dropdown, Flex, Layout, Menu } from 'antd';
-import { MoreOutlined, SplitCellsOutlined, DeleteOutlined, ExpandOutlined } from '@ant-design/icons';
+import { Button, ButtonProps, Col, Collapse, CollapseProps, Dropdown, Flex, Layout, Menu, MenuProps, Row } from 'antd';
+import { MoreOutlined, SplitCellsOutlined, DeleteOutlined, ExpandOutlined, WeiboOutlined, TwitterOutlined } from '@ant-design/icons';
 
 import WebView from './frontend/components/webview';
 import { Provider, useDispatch } from 'react-redux';
@@ -105,35 +105,22 @@ const Grid = () => {
     />;
 }
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
-const items: CollapseProps['items'] = [
+const menuItems: MenuProps['items'] = [
     {
-        key: '1',
-        label: '社交媒体',
-        children: <p>{text}</p>,
+        key: '1', label: '社交网络', children: [
+            { key: '1-1', label: '微博', icon: <WeiboOutlined /> },
+            { key: '1-2', label: 'X', icon: <TwitterOutlined /> },
+        ]
     },
-    {
-        key: '2',
-        label: 'AI 网站',
-        children: <p>{text}</p>,
-    },
-    {
-        key: '3',
-        label: '常用网站',
-        children: <p>{text}</p>,
-    },
+    { key: '2', label: 'AI网站', children: [] },
 ];
+
 const root = createRoot(document.body);
 root.render(<div id="app">
     <Provider store={store}>
-        <Layout style={{ height: "100%" }}>
+        <Layout style={{ height: "100%" }} hasSider>
             <Sider collapsible theme='light' >
-                <Collapse items={items} defaultActiveKey={['1']} />;
+                <Menu theme="light" mode="inline" defaultSelectedKeys={['4']} items={menuItems} />
             </Sider>
             <Content>
                 <Grid />
