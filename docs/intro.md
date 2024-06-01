@@ -1,11 +1,9 @@
-<RayMemex介绍>
-RayMemex 是一款个人信息的一站式管理解决方案，通过它可以管理个人电子书、网页、图片、视频、音乐……
+Ray Memex 是我正在开发的一款开源项目，一个个人资料管理软件，愿景是管理**一切个人数据**，包括视频、电子书、网页归档、语料、音乐……
 
-技术选型：
+Ray Memex 中的 Memex 一词来自一个古老概念：
 
-- RayMemex 基于 Electron 开发。
-- 基于 [saltyshiomix/nextron](https://github.com/saltyshiomix/nextron) 框架。
-- UI 框架使用 [Ant Design](https://ant.design/)。
-- 使用 TypeScript
+![[Memex]]
 
-</RayMemex介绍>
+时间来到现在，在信息时代，对于 PC 来说，目前的 Windows/macOS/Linux 均无法很好地解决这个问题。目前基于文件系统的文件 + 各种软件的模式，在我看来不够融合，还只是最原始的工程实现。
+
+得益于计算机技术的发展，前端技术的发展，我准备在 Ray Memex  中对整套体系重新进行思考。
