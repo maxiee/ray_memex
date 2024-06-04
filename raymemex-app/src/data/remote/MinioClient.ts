@@ -1,11 +1,11 @@
-import { Client } from 'minio';
+import AWS from 'aws-sdk';
 
-const minioClient = new Client({
-    endPoint: 'your-minio-endpoint',
-    port: 9000,
-    useSSL: false,
-    accessKey: 'your-access-key',
-    secretKey: 'your-secret-key',
+const s3Client = new AWS.S3({
+    endpoint: 'your-minio-endpoint',
+    s3ForcePathStyle: true, // 必须设置,否则会报错
+    signatureVersion: 'v4',
+    accessKeyId: 'your-access-key',
+    secretAccessKey: 'your-secret-key'
 });
 
-export default minioClient;
+export default s3Client;
