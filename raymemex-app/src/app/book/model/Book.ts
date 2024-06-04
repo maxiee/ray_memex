@@ -1,7 +1,7 @@
 interface Book {
     id: string;
     title: string;
-    authors: string[];
+    authorIds: string[];        // 作者的 IDs
     publisher?: string;
     publishedDate?: Date;
     description?: string;
