@@ -1,11 +1,19 @@
 import AWS from 'aws-sdk';
 
+const minioEndpoint = process.env.MINIO_ENDPOINT;
+const minioAccessKey = process.env.MINIO_ACCESS_KEY;
+const minioSecretKey = process.env.MINIO_SECRET_KEY;
+
+if (!minioEndpoint || !minioAccessKey || !minioSecretKey) {
+    throw new Error('MinIO configuration not found in environment variables');
+}
+
 const s3Client = new AWS.S3({
-    endpoint: 'your-minio-endpoint',
-    s3ForcePathStyle: true, // 必须设置,否则会报错
+    endpoint: minioEndpoint,
+    s3ForcePathStyle: true,
     signatureVersion: 'v4',
-    accessKeyId: 'your-access-key',
-    secretAccessKey: 'your-secret-key'
+    accessKeyId: minioAccessKey,
+    secretAccessKey: minioSecretKey,
 });
 
 export default s3Client;
