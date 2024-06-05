@@ -27,6 +27,20 @@
  */
 
 import './index.css';
+
+import { ContextBridgeAPI } from './preload';
+import { ServiceStatus } from './data/remote/ServiceStatus';
+
+const api: ContextBridgeAPI = (window as any).api;
+
+export const checkMinioStatus = async () => {
+    console.log('MinIO status: start');
+    const status = await api.checkMinioStatus() as ServiceStatus;
+    console.log('MinIO status:', status);
+    return status;
+}
+
+console.log('👋 This message is being logged by "renderer.js", included via webpack');
+
 // Add this to the end of the existing file
 import './app';
-console.log('👋 This message is being logged by "renderer.js", included via webpack');

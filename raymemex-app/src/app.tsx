@@ -17,13 +17,14 @@ import Sider from 'antd/es/layout/Sider';
 import Title from 'antd/es/typography/Title';
 import MenuItem from 'antd/es/menu/MenuItem';
 import { MenuItemType } from 'antd/es/menu/interface';
+import ServiceStatusDisplay from './frontend/components/ServiceStatusDisplay';
 
 export type ViewId = 'a' | 'b' | 'c' | 'new';
 
 const TITLE_MAP: Record<ViewId, any> = {
     a: <WebView src='https://baidu.com' />,
     b: <WebView src='https://baidu.com' />,
-    c: <WebView src='https://kimi.moonshot.cn/' />,
+    c: <ServiceStatusDisplay />,
     new: 'New Window',
 };
 
