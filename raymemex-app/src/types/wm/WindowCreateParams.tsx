@@ -1,6 +1,8 @@
+import { AppTypeEnum } from "../app/AppTypeEnum";
+
 export type WindowCreateParams = {
     id: number;
     name: string;
-    app: string;
+    app: AppTypeEnum;
     params?: any;
 };
