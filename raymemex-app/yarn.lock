@@ -760,6 +760,11 @@
     jquery "^3.6.0"
     prop-types "^15.8.1"
 
+"@react95/icons@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@react95/icons/-/icons-2.1.1.tgz"
+  integrity sha512-yWwnaHHFXZ81aN9HuLtOOOGZf4I54CtD0dufnmF07eWax6zQfP9qgnbZZMO2LdSWs4eufnmiWJc5ae/hG8VvzA==
+
 "@redux-devtools/core@^4.0.0":
   version "4.0.0"
   resolved "https://registry.npmjs.org/@redux-devtools/core/-/core-4.0.0.tgz"

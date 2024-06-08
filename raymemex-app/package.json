@@ -49,6 +49,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "@react95/clippy": "^1.0.13",
+    "@react95/icons": "^2.1.1",
     "@reduxjs/toolkit": "^2.2.5",
     "antd": "^5.17.4",
     "aws-sdk": "^2.1633.0",
