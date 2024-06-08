@@ -11,7 +11,7 @@ import { startDragging, stopDragging } from './frontend/store/gestureSlice';
 // import '@blueprintjs/core/lib/css/blueprint.css';
 // import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { createGlobalStyle, StyleSheetManager, ThemeProvider } from 'styled-components';
 import original from 'react95/dist/themes/original';
 
 import 'react-mosaic-component/react-mosaic-component.css';
@@ -137,6 +137,7 @@ const root = createRoot(document.body);
 // </div>);
 
 root.render(<div id="app">
+    <StyleSheetManager shouldForwardProp={(prop) => !['active', 'primary', 'fullWidth', 'fixed', 'shadow', 'square', 'noPadding'].includes(prop)}>
     <ThemeProvider theme={original}>
         <Provider store={store}>
             <ClippyProvider>
@@ -145,4 +146,5 @@ root.render(<div id="app">
             </ClippyProvider>
         </Provider>
     </ThemeProvider>
+    </StyleSheetManager>
 </div>);
