@@ -751,6 +751,15 @@
   resolved "https://registry.npmjs.org/@react-dnd/shallowequal/-/shallowequal-4.0.2.tgz"
   integrity sha512-/RVXdLvJxLg4QKvMoM5WlwNR9ViO9z8B/qPcc+C0Sa/teJY7QG7kJ441DwzOjMYEY7GmU4dj5EcGHIkKZiQZCA==
 
+"@react95/clippy@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.npmjs.org/@react95/clippy/-/clippy-1.0.13.tgz"
+  integrity sha512-XzcAhFw2Zb3W83JL2YB9H9TE80Z1BIdYTBfmSMqNRoVqhBq5UOWwBSz/sClRjoubWPaeTvtRzeDC5y9iawP0uw==
+  dependencies:
+    clippyjs "^0.0.3"
+    jquery "^3.6.0"
+    prop-types "^15.8.1"
+
 "@redux-devtools/core@^4.0.0":
   version "4.0.0"
   resolved "https://registry.npmjs.org/@redux-devtools/core/-/core-4.0.0.tgz"
@@ -2023,6 +2032,13 @@ cli-truncate@^3.1.0:
   dependencies:
     slice-ansi "^5.0.0"
     string-width "^5.0.0"
+
+clippyjs@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/clippyjs/-/clippyjs-0.0.3.tgz"
+  integrity sha512-i4sPaKbCA6PfXiwxNK35E1io6AXN7VGwEGZR9sE8RqOgXPNtRWKbFubmx87JwSuwIrdClO/rkTMjhl2ZyOHjug==
+  dependencies:
+    jquery "^3.2.1"
 
 cliui@^7.0.2:
   version "7.0.4"
@@ -4260,6 +4276,11 @@ jmespath@0.16.0:
   version "0.16.0"
   resolved "https://registry.npmjs.org/jmespath/-/jmespath-0.16.0.tgz"
   integrity sha512-9FzQjJ7MATs1tSpnco1K6ayiYE3figslrXA72G2HQ/n76RzvYlofyi5QM+iX4YRs/pu3yzxlVQSST23+dMDknw==
+
+jquery@^3.2.1, jquery@^3.6.0:
+  version "3.7.1"
+  resolved "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"

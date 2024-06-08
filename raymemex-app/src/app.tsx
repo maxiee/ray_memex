@@ -23,6 +23,7 @@ import { MenuItemType } from 'antd/es/menu/interface';
 import ServiceStatusDisplay from './frontend/components/ServiceStatusDisplay';
 import { Desktop } from './frontend/components/wm/Desktop/Desktop';
 import { MenuBar } from './frontend/components/wm/MenuBar/MenuBar';
+import { ClippyProvider } from '@react95/clippy';
 
 export type ViewId = 'a' | 'b' | 'c' | 'new';
 
@@ -138,8 +139,10 @@ const root = createRoot(document.body);
 root.render(<div id="app">
     <ThemeProvider theme={original}>
         <Provider store={store}>
-            <Desktop />
-            <MenuBar />
+            <ClippyProvider>
+                <Desktop />
+                <MenuBar />
+            </ClippyProvider>
         </Provider>
     </ThemeProvider>
 </div>);
