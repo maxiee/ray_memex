@@ -11,6 +11,9 @@ import { startDragging, stopDragging } from './frontend/store/gestureSlice';
 // import '@blueprintjs/core/lib/css/blueprint.css';
 // import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import original from 'react95/dist/themes/original';
+
 import 'react-mosaic-component/react-mosaic-component.css';
 import { Content } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
@@ -19,6 +22,7 @@ import MenuItem from 'antd/es/menu/MenuItem';
 import { MenuItemType } from 'antd/es/menu/interface';
 import ServiceStatusDisplay from './frontend/components/ServiceStatusDisplay';
 import { Desktop } from './frontend/components/wm/Desktop/Desktop';
+import { MenuBar } from './frontend/components/wm/MenuBar/MenuBar';
 
 export type ViewId = 'a' | 'b' | 'c' | 'new';
 
@@ -132,7 +136,10 @@ const root = createRoot(document.body);
 // </div>);
 
 root.render(<div id="app">
-    <Provider store={store}>
-        <Desktop />
-    </Provider>
+    <ThemeProvider theme={original}>
+        <Provider store={store}>
+            <Desktop />
+            <MenuBar />
+        </Provider>
+    </ThemeProvider>
 </div>);

@@ -5928,6 +5928,11 @@ react@*, "react@^16.14.0 || ^17.0.2 || ^18.0.0", "react@^16.3.0 || ^17.0.0 || ^1
   dependencies:
     loose-envify "^1.1.0"
 
+react95@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/react95/-/react95-4.0.0.tgz"
+  integrity sha512-C/2Ecws+ShHMJa3/ki6d3ufCukEYyZ+up45NJhX+uecFh5sXNdkEX8bPZ4pKTGl0mSTMkiCJTGOJB1Gmf1W3dA==
+
 read-binary-file-arch@^1.0.6:
   version "1.0.6"
   resolved "https://registry.npmjs.org/read-binary-file-arch/-/read-binary-file-arch-1.0.6.tgz"
@@ -6721,7 +6726,7 @@ style-loader@^3.0.0:
   resolved "https://registry.npmjs.org/style-loader/-/style-loader-3.3.4.tgz"
   integrity sha512-0WqXzrsMTyb8yjZJHDqwmnwRJvhALK9LfRtRc6B4UTWe8AijYLZYZ9thuJTZc2VfQWINADW/j+LiJnfy2RoC1w==
 
-styled-components@^6.1.11:
+styled-components@^6.1.11, "styled-components@>= 5.3.3":
   version "6.1.11"
   resolved "https://registry.npmjs.org/styled-components/-/styled-components-6.1.11.tgz"
   integrity sha512-Ui0jXPzbp1phYij90h12ksljKGqF8ncGx+pjrNPsSPhbUUjWT2tD1FwGo2LF6USCnbrsIhNngDfodhxbegfEOA==
