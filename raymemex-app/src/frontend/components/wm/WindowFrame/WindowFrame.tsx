@@ -27,7 +27,7 @@ export const WindowFrame = (props: {
                 justifyContent: 'space-between',
                 width: '100%',
                 height: '100%',
-                padding: '0 0.5rem',
+                padding: '0',
                 boxSizing: 'border-box',
 
             }}>
