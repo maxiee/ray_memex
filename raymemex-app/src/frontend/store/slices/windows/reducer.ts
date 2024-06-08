@@ -4,7 +4,7 @@ import { ADD_WINDOW, DELETE_WINDOW, SET_WINODW_TOP, UPDATE_VIEW_STATE, UPDATE_WI
 import { getMaxZIndex, getWindowMaxId } from "../../../../utils/wm_utils";
 import { AnyAction } from "@reduxjs/toolkit";
 import { WindowType } from "src/types/wm/WindowType";
-import { WindowViewStateEnum } from "src/types/wm/WindowViewStateEnum";
+import { WindowViewStateEnum } from "../../../../types/wm/WindowViewStateEnum";
 
 export const windowReducer = (
     state = windowsInitalState,

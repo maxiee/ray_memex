@@ -51,23 +51,23 @@ interface FileProxy {
 }
 
 // 本地文件系统代理实现
-class LocalFileProxy implements FileProxy {
-    private path: string;
+// class LocalFileProxy implements FileProxy {
+//     private path: string;
 
-    constructor(path: string) {
-        this.path = path;
-    }
+//     constructor(path: string) {
+//         this.path = path;
+//     }
 
-    async read(): Promise<ArrayBuffer> {
-        // 从本地文件系统读取文件内容的逻辑
-        // ...
-    }
+//     // async read(): Promise<ArrayBuffer> {
+//     //     // 从本地文件系统读取文件内容的逻辑
+//     //     // ...
+//     // }
 
-    async write(content: ArrayBuffer): Promise<void> {
-        // 将内容写入本地文件系统的逻辑
-        // ...
-    }
-}
+//     async write(content: ArrayBuffer): Promise<void> {
+//         // 将内容写入本地文件系统的逻辑
+//         // ...
+//     }
+// }
 
 // 网页文件类
 class WebpageFile extends AbstractFile {

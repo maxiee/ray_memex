@@ -14,13 +14,13 @@ class EBookFileManager {
         // 同时将删除操作同步到云端存储
     }
 
-    async getById(id: string): Promise<EBookFile | undefined> {
-        // 从本地存储系统中获取电子书文件实体
-        // 如果本地不存在，则从云端存储中获取
-    }
+    // async getById(id: string): Promise<EBookFile | undefined> {
+    //     // 从本地存储系统中获取电子书文件实体
+    //     // 如果本地不存在，则从云端存储中获取
+    // }
 
-    async getByEditionId(editionId: string): Promise<EBookFile[]> {
-        // 根据 Edition 的 ID 获取关联的所有电子书文件实体
-        // 从本地存储系统中获取，如果本地不存在，则从云端存储中获取
-    }
+    // async getByEditionId(editionId: string): Promise<EBookFile[]> {
+    //     // 根据 Edition 的 ID 获取关联的所有电子书文件实体
+    //     // 从本地存储系统中获取，如果本地不存在，则从云端存储中获取
+    // }
 }

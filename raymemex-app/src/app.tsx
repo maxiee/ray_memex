@@ -18,6 +18,7 @@ import Title from 'antd/es/typography/Title';
 import MenuItem from 'antd/es/menu/MenuItem';
 import { MenuItemType } from 'antd/es/menu/interface';
 import ServiceStatusDisplay from './frontend/components/ServiceStatusDisplay';
+import { Desktop } from './frontend/components/wm/Desktop/Desktop';
 
 export type ViewId = 'a' | 'b' | 'c' | 'new';
 
@@ -117,15 +118,21 @@ const menuItems: MenuProps['items'] = [
 ];
 
 const root = createRoot(document.body);
+// root.render(<div id="app">
+//     <Provider store={store}>
+//         <Layout style={{ height: "100%" }} hasSider>
+//             <Sider collapsible theme='light' >
+//                 <Menu theme="light" mode="inline" defaultSelectedKeys={['4']} items={menuItems} />
+//             </Sider>
+//             <Content>
+//                 <Grid />
+//             </Content>
+//         </Layout>
+//     </Provider>
+// </div>);
+
 root.render(<div id="app">
     <Provider store={store}>
-        <Layout style={{ height: "100%" }} hasSider>
-            <Sider collapsible theme='light' >
-                <Menu theme="light" mode="inline" defaultSelectedKeys={['4']} items={menuItems} />
-            </Sider>
-            <Content>
-                <Grid />
-            </Content>
-        </Layout>
+        <Desktop />
     </Provider>
 </div>);
