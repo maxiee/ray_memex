@@ -7,6 +7,6 @@ export const WindowStyle = styled.div`
 
 export const DesktopStyle = styled.div`
     background-color: grey;
-    height: calc(100% - 48px);
+    height: 100%;
     width: 100%;
 `;
