@@ -1,0 +1,1 @@
+export const SET_IS_DRAG_DISABLE = "SET_IS_DRAG_DISABLE";

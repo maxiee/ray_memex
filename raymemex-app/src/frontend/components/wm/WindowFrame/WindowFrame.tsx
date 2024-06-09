@@ -1,11 +1,13 @@
-import { ReactElement, useCallback, useRef } from "react";
+import { ReactElement, useCallback, useRef, useState } from "react";
 import { Button, Frame, Toolbar, Window, WindowContent, WindowHeader } from "react95";
 import { WindowType } from "../../../../types/wm/WindowType";
 import Draggable from "react-draggable";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { WindowViewStateEnum } from "../../../../types/wm/WindowViewStateEnum";
 import { updateHeight, updateLeft, updateTop, updateViewState, updateWidth } from "../../../../frontend/store/slices/windows/actions";
 import useResizeObserver from "../../../../frontend/hooks/useResizeObserver";
+import { selectOs } from "../../../../frontend/store/os/selectors";
+import { setIsDragDisable } from "../../../../frontend/store/os/actions";
 
 
 const IconClose = () => (
@@ -16,11 +18,11 @@ export const WindowFrame = (props: {
     window: WindowType;
     children: ReactElement
 }) => {
-
+    const os = useSelector(selectOs);
     const dispatch = useDispatch();
 
     const handleResize = useCallback((target: HTMLDivElement) => {
-        // dispatch(setIsDragDisable(true));
+        dispatch(setIsDragDisable(true));
         if (props.window.viewState === WindowViewStateEnum.Fullscreen) {
             dispatch(updateViewState(props.window.id, WindowViewStateEnum.Custom));
         }
@@ -46,7 +48,7 @@ export const WindowFrame = (props: {
     return <Draggable
         defaultPosition={{ x: props.window.left, y: props.window.top }}
         onDrag={(e) => handleDrag(e)}
-        // disabled={os.isDragDisable}
+        disabled={os.isDragDisable}
         bounds="parent"
     >
         <Window className="window" ref={frameRef} style={{
@@ -59,7 +61,9 @@ export const WindowFrame = (props: {
             position: "absolute",
             overflow: 'hidden',
         }}>
-            <WindowHeader>
+            <WindowHeader
+                onMouseLeave={() => dispatch(setIsDragDisable(true))}
+                onMouseEnter={() => dispatch(setIsDragDisable(false))}>
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
