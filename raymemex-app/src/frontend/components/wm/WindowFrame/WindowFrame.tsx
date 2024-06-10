@@ -9,6 +9,18 @@ import useResizeObserver from "../../../../frontend/hooks/useResizeObserver";
 import { selectOs } from "../../../../frontend/store/os/selectors";
 import { setIsDragDisable } from "../../../../frontend/store/os/actions";
 
+const IconMinimize = () => (
+    <svg width='8' height='7' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+        <rect x='1' y='5' width='6' height='1' />
+    </svg>
+);
+
+const IconMaximize = () => (
+    <svg width='8' height='7' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+        <path fillRule='evenodd' clipRule='evenodd' d='M1 1h6v5H1V1zm1 1v3h4V2H2z' />
+    </svg>
+);
+
 
 const IconClose = () => (
     <svg width='8' height='7' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fillRule='evenodd' clipRule='evenodd' d='M0 0h2v1h1v1h2V1h1V0h2v1H7v1H6v1H5v1h1v1h1v1h1v1H6V6H5V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0V0z' /></svg>
@@ -74,6 +86,33 @@ export const WindowFrame = (props: {
 
                 }}>
                     <span>Ray Memex</span>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+
+                    }}>
+                        <Button style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: '20px',
+                            height: '20px',
+                            marginLeft: '-1px',
+                            marginTop: '-1px',
+
+                        }}>
+                            <IconMinimize />
+                        </Button>
+                        <Button style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: '20px',
+                            height: '20px',
+                            marginLeft: '-1px',
+                            marginTop: '-1px',
+
+                        }}>
+                            <IconMaximize />
+                        </Button>
                     <Button style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -85,6 +124,7 @@ export const WindowFrame = (props: {
                     }}>
                         <IconClose />
                     </Button>
+                    </div>
                 </div>
             </WindowHeader>
             <Toolbar></Toolbar>
