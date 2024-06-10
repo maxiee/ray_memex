@@ -131,8 +131,7 @@ export const WindowFrame = (props: {
             <WindowContent style={{
                 flex: 1,
             }}>
-                {/* {props.children} */}
-                <div>React95</div>
+                {props.children}
             </WindowContent>
             <Frame variant='well' className='footer'>
                 Put some useful information here
