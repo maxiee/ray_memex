@@ -27,6 +27,7 @@ const IconClose = () => (
 );
 
 export const WindowFrame = (props: {
+    title: string;
     window: WindowType;
     children: ReactElement
 }) => {
@@ -85,7 +86,7 @@ export const WindowFrame = (props: {
                     padding: '0',
 
                 }}>
-                    <span>Ray Memex</span>
+                    <span>{props.title}</span>
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',

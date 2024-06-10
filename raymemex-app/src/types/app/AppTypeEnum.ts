@@ -1,4 +1,5 @@
 export enum AppTypeEnum {
     WebBrowser,
-    ImageViewer
+    ImageViewer,
+    ServiceStatus,
 }

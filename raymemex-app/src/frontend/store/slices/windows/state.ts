@@ -5,9 +5,10 @@ import { WindowViewStateEnum } from "../../../../types/wm/WindowViewStateEnum";
 export const windowsInitalState = {
     elements: [{
         id: 1,
-        appType: AppTypeEnum.WebBrowser,
+        title: "服务状态",
+        appType: AppTypeEnum.ServiceStatus,
         hidden: false,
-        width: "60%",
+        width: "300px",
         height: "300px",
         top: 100,
         left: 100,

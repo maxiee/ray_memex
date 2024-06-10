@@ -10,7 +10,7 @@ export const Windows = () => {
     return <WindowStyle>
         {
             windows?.elements?.length && windows.elements.map((window) =>
-                <WindowFrame key={window.id} window={window}><span>{appDispatcher(window.appType)}</span></WindowFrame>
+                <WindowFrame key={window.id} window={window} title={window.title} >{appDispatcher(window.appType)}</WindowFrame>
             )
         }
     </WindowStyle>

@@ -1,5 +1,15 @@
-import { AppTypeEnum } from "src/types/app/AppTypeEnum";
+import { AppTypeEnum } from "../../types/app/AppTypeEnum";
+import ServiceStatusDisplay from "../components/ServiceStatusDisplay";
 
 export const appDispatcher = (appType: AppTypeEnum) => {
-    return <div>appType={appType}</div>
+    switch (appType) {
+        // case AppTypeEnum.WebBrowser:
+        //     return <WebBrowser />;
+        // case AppTypeEnum.ImageViewer:
+        //     return <ImageViewer />;
+        case AppTypeEnum.ServiceStatus:
+            return <ServiceStatusDisplay />;
+        default:
+            return <div>appType={appType}</div>;
+    }
 }
